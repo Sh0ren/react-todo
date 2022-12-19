@@ -61,11 +61,15 @@ export default class Input extends Component {
           className='new-todo-form__timer'
           placeholder='Min'
           onChange={this.onMinChange}
+          /* eslint-disable-next-line react/destructuring-assignment */
+          value={this.state.min}
         />
         <input
           className='new-todo-form__timer'
           placeholder='Sec'
           onChange={this.onSecondChange}
+          /* eslint-disable-next-line react/destructuring-assignment */
+          value={this.state.sec}
         />
         <input type='submit' hidden />
       </form>
