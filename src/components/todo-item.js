@@ -14,6 +14,15 @@ export default class TodoItem extends Component {
     }
   };
 
+  isTimerCounting = () => {
+    // eslint-disable-next-line react/destructuring-assignment
+    if (this.props.status === true) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
   render() {
     const { label, timeCreate, onToggleImportant, onDeleted, timer } =
       this.props;
@@ -30,7 +39,7 @@ export default class TodoItem extends Component {
           />
           <label>
             <span className='description'>{label}</span>
-            <Timer timer={timer} />
+            <Timer timer={timer} isTimerCounting={this.isTimerCounting()} />
             <span className='created'>{timeCreate}</span>
           </label>
           {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
