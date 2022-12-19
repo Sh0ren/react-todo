@@ -5,6 +5,10 @@ import PropTypes from 'prop-types';
 export default class Input extends Component {
   state = {
     label: '',
+    // eslint-disable-next-line react/no-unused-state
+    min: '',
+    // eslint-disable-next-line react/no-unused-state
+    sec: '',
   };
 
   onLabelChange = (e) => {
@@ -13,16 +17,39 @@ export default class Input extends Component {
     });
   };
 
+  onMinChange = (e) => {
+    this.setState({
+      // eslint-disable-next-line react/no-unused-state
+      min: e.target.value,
+    });
+  };
+
+  onSecondChange = (e) => {
+    this.setState({
+      // eslint-disable-next-line react/no-unused-state
+      sec: e.target.value,
+    });
+  };
+
   onSubmit = (e) => {
+    // eslint-disable-next-line react/destructuring-assignment
+    console.log(typeof Number(this.state.min));
     e.preventDefault();
     // eslint-disable-next-line react/destructuring-assignment
-    this.props.onAdded(this.state.label);
-    this.setState({ label: '' });
+    this.props.onAdded(
+      // eslint-disable-next-line react/destructuring-assignment
+      this.state.label,
+      // eslint-disable-next-line react/destructuring-assignment
+      Number(this.state.min),
+      // eslint-disable-next-line react/destructuring-assignment
+      Number(this.state.sec)
+    );
+    this.setState({ label: '', min: '', sec: '' });
   };
 
   render() {
     return (
-      <form onSubmit={this.onSubmit}>
+      <form className='new-todo-form' onSubmit={this.onSubmit}>
         <input
           className='new-todo'
           placeholder='What needs to be done?'
@@ -30,6 +57,17 @@ export default class Input extends Component {
           /* eslint-disable-next-line react/destructuring-assignment */
           value={this.state.label}
         />
+        <input
+          className='new-todo-form__timer'
+          placeholder='Min'
+          onChange={this.onMinChange}
+        />
+        <input
+          className='new-todo-form__timer'
+          placeholder='Sec'
+          onChange={this.onSecondChange}
+        />
+        <input type='submit' hidden />
       </form>
     );
   }

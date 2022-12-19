@@ -1,4 +1,6 @@
 // eslint-disable-next-line no-unused-vars
+import Timer from './timer';
+// eslint-disable-next-line no-unused-vars
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -13,7 +15,10 @@ export default class TodoItem extends Component {
   };
 
   render() {
-    const { label, timeCreate, onToggleImportant, onDeleted } = this.props;
+    const { label, timeCreate, onToggleImportant, onDeleted, timer } =
+      this.props;
+
+    console.log(timer);
 
     return (
       <li className={this.className()}>
@@ -25,6 +30,7 @@ export default class TodoItem extends Component {
           />
           <label>
             <span className='description'>{label}</span>
+            <Timer timer={timer} />
             <span className='created'>{timeCreate}</span>
           </label>
           {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}

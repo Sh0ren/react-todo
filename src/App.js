@@ -14,9 +14,27 @@ export default class App extends Component {
     super();
     this.state = {
       todoList: [
-        { status: true, label: 'Sobaka', id: 1, timeCreate: '5 min ago' },
-        { status: true, label: 'Sobaka', id: 2, timeCreate: '5 min ago' },
-        { status: true, label: undefined, id: 3, timeCreate: undefined },
+        {
+          status: true,
+          label: 'Sobaka',
+          id: 1,
+          timeCreate: '5 min ago',
+          timer: 120,
+        },
+        {
+          status: true,
+          label: 'Sobaka',
+          id: 2,
+          timeCreate: '5 min ago',
+          timer: 120,
+        },
+        {
+          status: true,
+          label: undefined,
+          id: 3,
+          timeCreate: undefined,
+          timer: 120,
+        },
       ],
       filter: undefined,
     };
@@ -39,10 +57,13 @@ export default class App extends Component {
   // eslint-disable-next-line react/sort-comp
   maxId = 10;
 
-  addItem = (text) => {
+  addItem = (text, min, sec) => {
+    console.log(`text ${text} minutes ${min} seconds ${sec}`);
+    const timer = min * 60 + sec;
     const newItem = {
       status: true,
       label: text,
+      timer,
       // eslint-disable-next-line no-plusplus
       id: this.maxId++,
       timeCreate: formatDistanceToNow(new Date()),
@@ -104,7 +125,7 @@ export default class App extends Component {
     return (
       <div className='todoapp'>
         <Header />
-        <Input onAdded={(text) => this.addItem(text)} />
+        <Input onAdded={(text, min, sec) => this.addItem(text, min, sec)} />
         <section className='main'>
           <Todos
             todos={currentList}
