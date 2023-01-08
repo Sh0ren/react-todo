@@ -4,56 +4,49 @@ import Timer from './timer';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default class TodoItem extends Component {
-  className = () => {
+export default function TodoItem(props) {
+  const className = () => {
     // eslint-disable-next-line react/destructuring-assignment
-    if (this.props.status === true) {
+    if (props.status === true) {
       return 'active';
     } else {
       return 'completed';
     }
   };
 
-  isTimerCounting = () => {
+  const isTimerCounting = () => {
     // eslint-disable-next-line react/destructuring-assignment
-    if (this.props.status === true) {
+    if (props.status === true) {
       return true;
     } else {
       return false;
     }
   };
 
-  render() {
-    const { label, timeCreate, onToggleImportant, onDeleted, timer } =
-      this.props;
+  const { label, timeCreate, onToggleImportant, onDeleted, timer } = props;
 
-    console.log(timer);
+  console.log(timer);
 
-    return (
-      <li className={this.className()}>
-        <div className='view'>
-          <input
-            className='toggle'
-            type='checkbox'
-            onClick={onToggleImportant}
-          />
-          <label>
-            <span className='description'>{label}</span>
-            <Timer timer={timer} isTimerCounting={this.isTimerCounting()} />
-            <span className='created'>{timeCreate}</span>
-          </label>
-          {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-          <button type='button' className='icon icon-edit' />
-          {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-          <button
-            type='button'
-            className='icon icon-destroy'
-            onClick={onDeleted}
-          />
-        </div>
-      </li>
-    );
-  }
+  return (
+    <li className={className()}>
+      <div className='view'>
+        <input className='toggle' type='checkbox' onClick={onToggleImportant} />
+        <label>
+          <span className='description'>{label}</span>
+          <Timer timer={timer} isTimerCounting={isTimerCounting()} />
+          <span className='created'>{timeCreate}</span>
+        </label>
+        {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+        <button type='button' className='icon icon-edit' />
+        {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
+        <button
+          type='button'
+          className='icon icon-destroy'
+          onClick={onDeleted}
+        />
+      </div>
+    </li>
+  );
 }
 
 TodoItem.defaultProps = {

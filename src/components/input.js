@@ -1,80 +1,56 @@
 // eslint-disable-next-line no-unused-vars
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import PropTypes from 'prop-types';
 
-export default class Input extends Component {
-  state = {
-    label: '',
-    // eslint-disable-next-line react/no-unused-state
-    min: '',
-    // eslint-disable-next-line react/no-unused-state
-    sec: '',
+export default function Input(props) {
+  const [label, changeLabel] = useState('');
+  const [min, changeMin] = useState('');
+  const [sec, changeSec] = useState('');
+
+  const onLabelChange = (e) => {
+    changeLabel(e.target.value);
   };
 
-  onLabelChange = (e) => {
-    this.setState({
-      label: e.target.value,
-    });
-  };
+  const onMinChange = (e) => changeMin(e.target.value);
 
-  onMinChange = (e) => {
-    this.setState({
-      // eslint-disable-next-line react/no-unused-state
-      min: e.target.value,
-    });
-  };
+  const onSecondChange = (e) => changeSec(e.target.value);
 
-  onSecondChange = (e) => {
-    this.setState({
-      // eslint-disable-next-line react/no-unused-state
-      sec: e.target.value,
-    });
-  };
-
-  onSubmit = (e) => {
+  const onSubmit = (e) => {
     // eslint-disable-next-line react/destructuring-assignment
-    console.log(typeof Number(this.state.min));
     e.preventDefault();
     // eslint-disable-next-line react/destructuring-assignment
-    this.props.onAdded(
-      // eslint-disable-next-line react/destructuring-assignment
-      this.state.label,
-      // eslint-disable-next-line react/destructuring-assignment
-      Number(this.state.min),
-      // eslint-disable-next-line react/destructuring-assignment
-      Number(this.state.sec)
-    );
-    this.setState({ label: '', min: '', sec: '' });
+    props.onAdded(label, Number(min), Number(sec));
+    changeLabel('');
+    changeMin('');
+    changeSec('');
   };
 
-  render() {
-    return (
-      <form className='new-todo-form' onSubmit={this.onSubmit}>
-        <input
-          className='new-todo'
-          placeholder='What needs to be done?'
-          onChange={this.onLabelChange}
-          /* eslint-disable-next-line react/destructuring-assignment */
-          value={this.state.label}
-        />
-        <input
-          className='new-todo-form__timer'
-          placeholder='Min'
-          onChange={this.onMinChange}
-          /* eslint-disable-next-line react/destructuring-assignment */
-          value={this.state.min}
-        />
-        <input
-          className='new-todo-form__timer'
-          placeholder='Sec'
-          onChange={this.onSecondChange}
-          /* eslint-disable-next-line react/destructuring-assignment */
-          value={this.state.sec}
-        />
-        <input type='submit' hidden />
-      </form>
-    );
-  }
+  return (
+    <form className='new-todo-form' onSubmit={onSubmit}>
+      <input
+        className='new-todo'
+        placeholder='What needs to be done?'
+        onChange={onLabelChange}
+        /* eslint-disable-next-line react/destructuring-assignment */
+        value={label}
+      />
+      <input
+        className='new-todo-form__timer'
+        placeholder='Min'
+        onChange={onMinChange}
+        /* eslint-disable-next-line react/destructuring-assignment */
+        value={min}
+      />
+      <input
+        className='new-todo-form__timer'
+        placeholder='Sec'
+        onChange={onSecondChange}
+        /* eslint-disable-next-line react/destructuring-assignment */
+        value={sec}
+      />
+      <input type='submit' hidden />
+    </form>
+  );
 }
 
 Input.defaultProps = {

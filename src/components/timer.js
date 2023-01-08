@@ -4,8 +4,6 @@ import { useEffect, useState } from 'react';
 const getPadTime = (time) => time.toString().padStart(2, '0');
 export default function Timer(props) {
   // eslint-disable-next-line react/destructuring-assignment
-  console.log(`Timer is ${props.timer}`);
-  // eslint-disable-next-line react/destructuring-assignment
   const [timeLeft, setTimeLeft] = useState(props.timer);
   const [isCounting, setIsCounting] = useState(true);
   const minutes = getPadTime(Math.floor(timeLeft / 60));
